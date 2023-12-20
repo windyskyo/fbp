@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPhone, faMessage } from '@fortawesome/free-solid-svg-icons';
 
 type AccountInfo = {
   id: string;
@@ -65,7 +66,7 @@ export default function Home() {
     <div className='flex justify-center py-20 text-gray-500 bg-white'>
       <div className='w-full max-w-sm p-4'>
         <div className='flex flex-col w-full'>
-          <h1 className='text-3xl font-bold pt-10 pb-4 border-b border-gray-600'>
+          <h1 className='text-3xl font-bold pt-10 pb-4 border-b border-gray-400'>
             김은호 처음,생일
           </h1>
           <p className='mt-3 text-right'>2024년 1월 20일 토요일 오후 3시</p>
@@ -337,15 +338,35 @@ export default function Home() {
                 <div className='w-1/2'>
                   <p>아빠 연락처</p>
                   <div className='mt-2 flex flex-row justify-center space-x-2'>
-                    <button className='p-2 px-3 border rounded-xl'></button>
-                    <button className='p-2 px-3 border rounded-xl'>문자</button>
+                    <a
+                      href='tel:01058862980'
+                      className='p-2 px-4 border rounded-xl'
+                    >
+                      <FontAwesomeIcon icon={faPhone} />
+                    </a>
+                    <a
+                      href='sms:01058862980'
+                      className='p-2 px-4 border rounded-xl'
+                    >
+                      <FontAwesomeIcon icon={faMessage} />
+                    </a>
                   </div>
                 </div>
                 <div className='w-1/2'>
                   <p>엄마 연락처</p>
                   <div className='mt-2 flex flex-row justify-center  space-x-2'>
-                    <button className='p-2 px-3 border rounded-xl'>전화</button>
-                    <button className='p-2 px-3 border rounded-xl'>문자</button>
+                    <a
+                      href='tel:01066281994'
+                      className='p-2 px-4 border rounded-xl'
+                    >
+                      <FontAwesomeIcon icon={faPhone} />
+                    </a>
+                    <a
+                      href='sms:01066281994'
+                      className='p-2 px-4 border rounded-xl'
+                    >
+                      <FontAwesomeIcon icon={faMessage} />
+                    </a>
                   </div>
                 </div>
               </div>
