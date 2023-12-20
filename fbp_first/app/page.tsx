@@ -1,5 +1,3 @@
-'use client';
-
 import Image from 'next/image';
 import React, { useEffect } from 'react';
 
@@ -10,42 +8,26 @@ declare global {
 }
 
 export default function Home() {
-  const mapScript = document.createElement('script');
-  mapScript.async = true;
-  mapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.0e024f703bb83611ba6aedaa6209b282}&autoload=false&libraries=services,clusterer,drawing`;
-  document.head.appendChild(mapScript);
-
   useEffect(() => {
-    const onLoadKakaoMap = () => {
+    const kakaoMapScript = document.createElement('script');
+    kakaoMapScript.async = false;
+    kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=700d399006256f95732f06b19c046ba5&autoload=false`;
+    document.head.appendChild(kakaoMapScript);
+
+    const onLoadKakaoAPI = () => {
       window.kakao.maps.load(() => {
-        // 지도 생성
-        const mapContainer = document.getElementById('map'), // 지도를 표시할 div
-          mapOption = {
-            center: new window.kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-            level: 3, // 지도의 확대 레벨
-          };
+        var container = document.getElementById('map');
+        var options = {
+          center: new window.kakao.maps.LatLng(33.450701, 126.570667),
+          level: 3,
+        };
 
-        const map = new window.kakao.maps.Map(mapContainer, mapOption);
-        const markerPosition = new window.kakao.maps.LatLng(
-          33.450701,
-          126.570667
-        );
-
-        // 결과값을 마커로 표시
-        const marker = new window.kakao.maps.Marker({
-          map: map,
-          position: markerPosition,
-        });
-
-        // 지도의 중심을 결과값으로 받은 위치로 이동
-        marker.setMap(map);
+        var map = new window.kakao.maps.Map(container, options);
       });
     };
-    mapScript.addEventListener('load', onLoadKakaoMap);
 
-    return () => mapScript.removeEventListener('load', onLoadKakaoMap);
+    kakaoMapScript.addEventListener('load', onLoadKakaoAPI);
   }, []);
-
   return (
     <div className='flex justify-center py-20 text-gray-500 bg-white'>
       <div className='w-full max-w-sm p-4'>
@@ -166,10 +148,8 @@ export default function Home() {
           </div>
           <div className='text-center leading-8'>
             <h3 className='pb-12'>LOCATION</h3>
-            <div className='flex '>
-              <main className='absolute w-screen h-screen left-0 top-0'>
-                <KakaoMap />
-              </main>
+            <div className='w-full h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[80vh]'>
+              <div id='map' style={{ width: '100%', height: '100%' }}></div>
             </div>
           </div>
         </div>
