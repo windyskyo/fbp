@@ -65,11 +65,13 @@ export default function Home() {
   return (
     <div className='flex justify-center py-20 text-gray-500 bg-white'>
       <div className='w-full max-w-sm p-4'>
-        <div className='flex flex-col w-full'>
-          <h1 className='text-3xl font-bold pt-10 pb-4 border-b border-gray-400'>
-            김은호 처음,생일
+        <div className='flex flex-col w-full  text-center'>
+          <h1 className='text-3xl text-left font-bold pt-10 pb-2 border-b border-gray-300'>
+            김은호 처음, 생일
           </h1>
-          <p className='mt-3 text-right'>2024년 1월 20일 토요일 오후 3시</p>
+          <p className='mt-6 text-sm text-left'>
+            2024년 1월 20일 <b>토요일 오후 3시</b>
+          </p>
           <div className='py-6'>
             <Image
               src='/img/img_baby_main.jpg'
@@ -80,7 +82,9 @@ export default function Home() {
               priority
             />
           </div>
-          <p className='mb-2 text-sm'>더블유페스타</p>
+          <p className='mb-2 text-sm'>
+            <b>더블유페스타</b>
+          </p>
           <p className='mb-2 text-sm'>
             경기 고양시 일산서구 일현로 97-11 1동 B299호, B499호
           </p>
@@ -95,22 +99,23 @@ export default function Home() {
               priority
             />
           </div>
-          <div className='text-center px-6  leading-8'>
+          <div className='text-center font-bold text-sm px-4 bg-gray-50  leading-8 rounded-xl py-6'>
             <h3 className='pb-12'>INVITATION</h3>
             <p className='mb-6'>
-              하나의 작은 점으로 시작하여 열 달을 품고 작고 여려품에 보듬기도
-              조심스러웠던 이 작은 아이로부터 엄마, 아빠로서의 삻을 배웁니다.
+              하나의 작은 점으로 시작하여 열 달을 품고 작고<br></br> 여려품에
+              보듬기도 조심스러웠던 이 작은 아이로부터<br></br> 엄마, 아빠로서의
+              삻을 배웁니다.
             </p>
             <p className='mb-6'>
-              어느날 천사처럼 나타난 우리 아이가 어느덧 일 년이되어 감사하는
-              마음으로 조촐한 자리를 마련하였습니다.
+              어느날 천사처럼 나타난 우리 아이가 어느덧 <br></br>일 년이되어
+              감사하는 마음으로 조촐한 자리를<br></br> 마련하였습니다.
             </p>
             <p className='mb-6'>
-              바쁘시더라도 사랑하는 우리 아이가 건강하게 자라도록 참석하여
-              축복해주시면 큰 기쁨이 되겠습니다.
+              바쁘시더라도 사랑하는 우리 아이가<br></br> 건강하게 자라도록
+              참석하여 축복해주시면<br></br> 큰 기쁨이 되겠습니다.
             </p>
 
-            <div className='flex flex-row justify-center space-x-6'>
+            <div className='mt-10 flex flex-row justify-center space-x-6'>
               <p>아빠 김준수</p>
               <p>엄마 한나림</p>
             </div>
@@ -401,7 +406,7 @@ export default function Home() {
                     onClick={() =>
                       copyToClipboard(getAccountDetails()?.accountNumber ?? '')
                     }
-                    className='w-full mt-3 border px-4 py-1 rounded-lg bg-gray-100'
+                    className='w-full mt-3 border px-4 py-1 rounded-lg bg-gray-100 text-sm'
                   >
                     계좌번호 복사하기
                   </button>
@@ -409,10 +414,18 @@ export default function Home() {
                     onClick={() =>
                       openLink(getAccountDetails()?.kakaoLink ?? '')
                     }
-                    className='w-full mt-3 border px-4 py-1 rounded-lg bg-gray-100 text-black'
+                    className='w-full mt-3 border px-4 py-1 rounded-lg bg-gray-100 text-black flex justify-center items-center text-xs font-bold space-x-1'
                     style={{ backgroundColor: '#fae100' }}
                   >
-                    카카오페이로 보내기
+                    <Image
+                      src='/img/kakaopay.png'
+                      alt=''
+                      className='w-12'
+                      width={428}
+                      height={677}
+                      priority
+                    />
+                    <p>송금하기</p>
                   </button>
                 </div>
               </div>
