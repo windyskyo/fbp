@@ -34,8 +34,8 @@ export default function Home() {
       type: '엄마',
       name: '한나림',
       bank: '국민은행',
-      accountNumber: '123-456-789012',
-      kakaoLink: 'https://qr.kakaopay.com/linkHere',
+      accountNumber: '718201-01-268433',
+      kakaoLink: 'https://qr.kakaopay.com/Ej8jburr3',
     },
   ];
 
