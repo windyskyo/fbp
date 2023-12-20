@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { icon } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 type AccountInfo = {
   id: string;
@@ -338,9 +337,7 @@ export default function Home() {
                 <div className='w-1/2'>
                   <p>아빠 연락처</p>
                   <div className='mt-2 flex flex-row justify-center space-x-2'>
-                    <button className='p-2 px-3 border rounded-xl'>
-                      <FontAwesomeIcon icon={icon({ name: 'user-secret' })} />
-                    </button>
+                    <button className='p-2 px-3 border rounded-xl'></button>
                     <button className='p-2 px-3 border rounded-xl'>문자</button>
                   </div>
                 </div>
