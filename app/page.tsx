@@ -1,21 +1,51 @@
 'use client';
 
+import React, { useState } from 'react';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro';
 
-declare global {
-  interface Window {
-    kakao: any;
-  }
-}
+type AccountInfo = {
+  id: string;
+  type: string;
+  name: string;
+  bank: string;
+  accountNumber: string;
+  kakaoLink: string;
+};
 
 export default function Home() {
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [accountType, setAccountType] = useState(''); // 신랑측 또는 신부측 구분
+  const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
+  const [selectedAccountId, setSelectedAccountId] = useState<string | null>(
+    null
+  );
 
-  const openPopup = (type: any) => {
-    setAccountType(type);
+  const accountInfo: AccountInfo[] = [
+    {
+      id: 'groom',
+      type: '아빠',
+      name: '김준수',
+      bank: '신한은행',
+      accountNumber: '110-273-080466',
+      kakaoLink: 'https://qr.kakaopay.com/Ej8lrfjTF',
+    },
+    {
+      id: 'bride',
+      type: '엄마',
+      name: '한나림',
+      bank: '국민은행',
+      accountNumber: '123-456-789012',
+      kakaoLink: 'https://qr.kakaopay.com/linkHere',
+    },
+  ];
+
+  const openPopup = (accountId: string) => {
+    setSelectedAccountId(accountId);
     setIsPopupOpen(true);
+  };
+
+  const getAccountDetails = (): AccountInfo | undefined => {
+    return accountInfo.find((info) => info.id === selectedAccountId);
   };
 
   const copyToClipboard = (text: string) => {
@@ -29,7 +59,7 @@ export default function Home() {
       });
   };
 
-  const openLink = (url: any) => {
+  const openLink = (url: string) => {
     window.open(url, '_blank');
   };
   return (
@@ -291,48 +321,78 @@ export default function Home() {
               <h3 className='pb-12'>마음 전하는 곳</h3>
               <p className='mb-6'>축하의 의미로 축의금을 전달해보세요</p>
               <div className='flex flex-col space-y-3'>
-                <button
-                  onClick={() => openPopup('신랑측 마음 전하는 곳')}
-                  className='p-2 border rounded-xl'
-                >
-                  신랑측 계좌번호
-                </button>
-                <button
-                  onClick={() => openPopup('신랑측 마음 전하는 곳')}
-                  className='p-2 border rounded-xl'
-                >
-                  신부측 계좌번호
-                </button>
+                {accountInfo.map((info) => (
+                  <button
+                    key={info.id}
+                    onClick={() => openPopup(info.id)}
+                    className='p-2 border rounded-xl'
+                  >
+                    {info.type} 계좌번호
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className='text-center px-6  leading-8 mt-10'>
+              <div className='flex flex-row'>
+                <div className='w-1/2'>
+                  <p>아빠 연락처</p>
+                  <div className='mt-2 flex flex-row justify-center space-x-2'>
+                    <button className='p-2 px-3 border rounded-xl'>
+                      <FontAwesomeIcon icon={icon({ name: 'user-secret' })} />
+                    </button>
+                    <button className='p-2 px-3 border rounded-xl'>문자</button>
+                  </div>
+                </div>
+                <div className='w-1/2'>
+                  <p>엄마 연락처</p>
+                  <div className='mt-2 flex flex-row justify-center  space-x-2'>
+                    <button className='p-2 px-3 border rounded-xl'>전화</button>
+                    <button className='p-2 px-3 border rounded-xl'>문자</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      {/* 팝업 */}
+      {/* Popup */}
       {isPopupOpen && (
         <div className='fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex justify-center items-center'>
           <div className='bg-white p-5 rounded-lg'>
-            <h3 className='text-base font-bold mb-4'>{accountType} 계좌번호</h3>
-            {/* 계좌번호와 관련된 내용 */}
-            <div className=''>
-              <p>신랑 : 김준수</p>
-              <p>신한은행 110-273-080466</p>
-              <div className='w-full'>
-                <button
-                  onClick={() => copyToClipboard('110-273-080466')}
-                  className='w-full mt-3 border px-4 py-1 rounded-lg bg-gray-100'
-                >
-                  계좌번호 복사하기
-                </button>
-                <button
-                  onClick={() => openLink('https://qr.kakaopay.com/Ej8lrfjTF')}
-                  className='w-full mt-3 border px-4 py-1 rounded-lg bg-gray-100 text-black'
-                  style={{ backgroundColor: '#fae100' }}
-                >
-                  카카오페이로 보내기
-                </button>
+            {getAccountDetails() ? (
+              <div>
+                <h3 className='text-base font-bold mb-4'>
+                  {getAccountDetails()?.type} 계좌번호
+                </h3>
+                <p>{getAccountDetails()?.name}</p>
+                <p>
+                  {getAccountDetails()?.bank}{' '}
+                  {getAccountDetails()?.accountNumber}
+                </p>
+                <div className='w-full'>
+                  <button
+                    onClick={() =>
+                      copyToClipboard(getAccountDetails()?.accountNumber ?? '')
+                    }
+                    className='w-full mt-3 border px-4 py-1 rounded-lg bg-gray-100'
+                  >
+                    계좌번호 복사하기
+                  </button>
+                  <button
+                    onClick={() =>
+                      openLink(getAccountDetails()?.kakaoLink ?? '')
+                    }
+                    className='w-full mt-3 border px-4 py-1 rounded-lg bg-gray-100 text-black'
+                    style={{ backgroundColor: '#fae100' }}
+                  >
+                    카카오페이로 보내기
+                  </button>
+                </div>
               </div>
-            </div>
+            ) : (
+              <p>계좌 정보를 찾을 수 없습니다.</p>
+            )}
             <div className='flex justify-center mt-6'>
               <button
                 onClick={() => setIsPopupOpen(false)}
