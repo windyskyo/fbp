@@ -129,7 +129,7 @@ export default function Home() {
             <h3 className='pb-12'>GALLERY</h3>
             <div className='space-y-4'>
               <Image
-                src='/img/img_baby_2.jpg'
+                src='/img/img_baby_7.jpg'
                 alt='은호 사진'
                 className=''
                 width={3000}
@@ -137,15 +137,7 @@ export default function Home() {
                 priority
               />
               <Image
-                src='/img/img_baby_3.jpg'
-                alt='은호 사진'
-                className=''
-                width={3000}
-                height={4000}
-                priority
-              />
-              <Image
-                src='/img/img_baby_4.jpg'
+                src='/img/img_baby_6.jpg'
                 alt='은호 사진'
                 className=''
                 width={3000}
@@ -161,7 +153,23 @@ export default function Home() {
                 priority
               />
               <Image
-                src='/img/img_baby_6.jpg'
+                src='/img/img_baby_3.jpg'
+                alt='은호 사진'
+                className=''
+                width={3000}
+                height={4000}
+                priority
+              />
+              <Image
+                src='/img/img_baby_2.jpg'
+                alt='은호 사진'
+                className=''
+                width={3000}
+                height={4000}
+                priority
+              />
+              <Image
+                src='/img/img_baby_4.jpg'
                 alt='은호 사진'
                 className=''
                 width={3000}
