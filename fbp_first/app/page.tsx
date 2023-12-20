@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 declare global {
   interface Window {
@@ -10,6 +10,28 @@ declare global {
 }
 
 export default function Home() {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [accountType, setAccountType] = useState(''); // 신랑측 또는 신부측 구분
+
+  const openPopup = (type: any) => {
+    setAccountType(type);
+    setIsPopupOpen(true);
+  };
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        alert('계좌번호가 복사되었습니다.');
+      })
+      .catch((err) => {
+        console.error('복사 실패: ', err);
+      });
+  };
+
+  const openLink = (url: any) => {
+    window.open(url, '_blank');
+  };
   return (
     <div className='flex justify-center py-20 text-gray-500 bg-white'>
       <div className='w-full max-w-sm p-4'>
@@ -255,9 +277,73 @@ export default function Home() {
                 </div>
               </div>
             </div>
+            <div className='flex justify-center py-20'>
+              <Image
+                src='/img/img_deco_1.png'
+                alt=''
+                className='w-12'
+                width={428}
+                height={677}
+                priority
+              />
+            </div>
+            <div className='text-center px-6  leading-8'>
+              <h3 className='pb-12'>마음 전하는 곳</h3>
+              <p className='mb-6'>축하의 의미로 축의금을 전달해보세요</p>
+              <div className='flex flex-col space-y-3'>
+                <button
+                  onClick={() => openPopup('신랑측 마음 전하는 곳')}
+                  className='p-2 border rounded-xl'
+                >
+                  신랑측 계좌번호
+                </button>
+                <button
+                  onClick={() => openPopup('신랑측 마음 전하는 곳')}
+                  className='p-2 border rounded-xl'
+                >
+                  신부측 계좌번호
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+      {/* 팝업 */}
+      {isPopupOpen && (
+        <div className='fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex justify-center items-center'>
+          <div className='bg-white p-5 rounded-lg'>
+            <h3 className='text-base font-bold mb-4'>{accountType} 계좌번호</h3>
+            {/* 계좌번호와 관련된 내용 */}
+            <div className=''>
+              <p>신랑 : 김준수</p>
+              <p>신한은행 110-273-080466</p>
+              <div className='w-full'>
+                <button
+                  onClick={() => copyToClipboard('110-273-080466')}
+                  className='w-full mt-3 border px-4 py-1 rounded-lg bg-gray-100'
+                >
+                  계좌번호 복사하기
+                </button>
+                <button
+                  onClick={() => openLink('https://qr.kakaopay.com/Ej8lrfjTF')}
+                  className='w-full mt-3 border px-4 py-1 rounded-lg bg-gray-100 text-black'
+                  style={{ backgroundColor: '#fae100' }}
+                >
+                  카카오페이로 보내기
+                </button>
+              </div>
+            </div>
+            <div className='flex justify-center mt-6'>
+              <button
+                onClick={() => setIsPopupOpen(false)}
+                className='text-red-500 border px-10 py-1 rounded-lg border-red-200'
+              >
+                닫기
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
